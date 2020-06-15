@@ -7,6 +7,8 @@ import numpy as np
 data = keras.datasets.imdb
 (train_data, train_labels), (test_data, test_labels) = data.load_data(num_words=88000)  # Only 10000 most frequent words are kept
 
+review_classification = ["Positive", "Negative"]
+
 # print(len(train_data))
 # print(len(test_data))
 
@@ -90,11 +92,11 @@ model.save("model.h5")
 #         prediction = model.predict(encode)
 #         print("Review: ", line)
 #         print("Encoded line: ", encode)
-#         print("Prediction: ", prediction)
+#         print("Prediction: ", review_classification[int(np.round(prediction))])
 
 
 # Network Testing / Prediction
 test_review = model.predict(test_data[0])
 print("Review: ", decode_review(test_data[0]))
-print("Actual: ", test_labels[0])
-print("Prediction: ", test_review[0])
+print("Actual: ", review_classification[test_labels[0]])
+print("Prediction: ", review_classification[int(np.round(test_review[0]))])
